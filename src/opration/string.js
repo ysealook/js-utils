@@ -1,0 +1,1 @@
+export let splitStr = str => str.split(' ');
