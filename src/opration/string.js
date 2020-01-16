@@ -1,1 +1,1 @@
-export let splitStr = str => str.split(' ');
+export let splitStr = (str, splitter) => str.split(splitter || ' ');
