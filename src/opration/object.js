@@ -15,7 +15,7 @@ export function deepCopy(obj) {
 
 // 从一个对象中挑选属性到新的对象中
 // obj 需要获取属性的对象，keyStr: key字符串以空格分隔, deep: 是否深复制
-export let pickPropertys = (obj, pickKeys, deep) => {
+export let pickCopy = (obj, pickKeys, deep) => {
 	if (!obj || !pickKeys) return;
 	let res = {};
 	let keys = splitStr(pickKeys);
@@ -27,7 +27,7 @@ export let pickPropertys = (obj, pickKeys, deep) => {
 	return res;
 };
 // 从对象拷贝属性，并排除一些属性; exclude
-export let excludeObject = (obj, exclude, deep) => {
+export let excludeCopy = (obj, exclude, deep) => {
 	let res = {};
 	let keys = splitStr(exclude);
 

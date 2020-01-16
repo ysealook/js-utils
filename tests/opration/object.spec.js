@@ -1,7 +1,7 @@
-import { pickPropertys } from '../../src/opration/object';
+import { pickCopy } from '../../src/opration/object';
 
 describe('opration/object', ()=>{
-	it('pickPropertys', ()=>{
+	it('pickCopy', ()=>{
 
 		let target = {
 			foo: 1,
@@ -10,13 +10,13 @@ describe('opration/object', ()=>{
 			},
 			test: 'test'
 		};
-		let deepPick = pickPropertys(target, 'bar foo', true);
+		let deepPick = pickCopy(target, 'bar foo', true);
 		expect(deepPick.bar).toBeDefined();
 		deepPick.bar.zero = 1;
 		expect(deepPick.bar.zero !== target.bar.zero).toBeTruthy();
 		expect(deepPick.foo).toBe(1);
 
-		let pick = pickPropertys(target, 'foo bar');
+		let pick = pickCopy(target, 'foo bar');
     
 		expect(pick.bar.zero).toBe(0);
 		pick.bar.zero = 1;
