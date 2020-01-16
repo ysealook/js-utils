@@ -1,8 +1,9 @@
 import { splitStr } from './string';
+import { isArray } from '../assert/type';
 
 export function deepCopy(obj) {
 	if (typeof obj !== 'object') return obj;
-	let newObj = Array.isArray(obj) ? [] : {};
+	let newObj = isArray(obj) ? [] : {};
 
 	for (let key in obj) {
 		if (obj.hasOwnProperty(key)) {
@@ -17,8 +18,8 @@ export function deepCopy(obj) {
 // obj 需要获取属性的对象，keyStr: key字符串以空格分隔, deep: 是否深复制
 export let pickCopy = (obj, pickKeys, deep) => {
 	if (!obj || !pickKeys) return;
-	let res = Array.isArray(obj) ? [] : {};
-	let keys = splitStr(pickKeys);
+	let res = isArray(obj) ? [] : {};
+	let keys = isArray(pickKeys) ? pickKeys : splitStr(pickKeys);
 	for (let k in obj) {
 		if (obj.hasOwnProperty(k) && keys.indexOf(k) > -1) {
 			res[k] = deep ? deepCopy(obj[k]) : obj[k];
@@ -29,8 +30,8 @@ export let pickCopy = (obj, pickKeys, deep) => {
 // 从对象拷贝属性，并排除一些属性; exclude
 // 只排除根字段,obj不能为数组
 export let excludeCopy = (obj, exclude, deep) => {
-	let res = Array.isArray(obj) ? [] : {};
-	let keys = splitStr(exclude);
+	let res = isArray(obj) ? [] : {};
+	let keys = isArray(exclude) ? exclude : splitStr(exclude);
 
 	for (let k in obj) {
 		if (!obj.hasOwnProperty(k) || keys.indexOf(k) > -1) continue;
@@ -56,5 +57,5 @@ export function getPropByKeys(obj, keys) {
 }
 // keyStr like 'a.b.c'
 export function getProp(obj, keyStr, splitter) {
-	return getPropByKeys(obj, splitStr(keyStr, splitter || '.'));
+	return getPropByKeys(obj, isArray(keyStr) ? keyStr : splitStr(keyStr, splitter || '.'));
 }

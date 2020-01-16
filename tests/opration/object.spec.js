@@ -11,7 +11,7 @@ function genObj() {
 function genArr() {
 	return [1, 2, { zero: 0, foo: { bar: 'bar' } }];
 }
-describe('opration/object pickCopy ', () => {
+describe('opration/object', () => {
 	it('pickCopy', () => {
 
 		let target = {
@@ -28,12 +28,16 @@ describe('opration/object pickCopy ', () => {
 		expect(deepPick.foo).toBe(1);
 
 		let pick = pickCopy(target, 'foo bar');
-
+		
 		expect(pick.bar.zero).toBe(0);
 		pick.bar.zero = 1;
 		expect(target.bar.zero).toBe(1);
+
+		let pickByArray = pickCopy(target, ['foo', 'bar']);
+		expect(pickByArray.foo === target.foo).toBeTruthy();
+		expect(pickByArray.bar === target.bar).toBeTruthy();
 	});
-	it('opation/object excludeCopy', () => {
+	it('excludeCopy', () => {
 		let obj = genObj();
 		// excludeCopy
 		let excludeTest = excludeCopy(obj, 'test foo');
@@ -57,7 +61,7 @@ describe('opration/object pickCopy ', () => {
 		expect(deepExArr[2]).not.toBeDefined();
 		expect(deepExArr[1] === arr[1]).not.toBeTruthy();
 	});
-	it('opation/object getProp', () => {
+	it('getProp', () => {
 		let target = {
 			a: {
 				b: 1
